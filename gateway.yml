@@ -1,0 +1,42 @@
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 20000
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+ribbon:
+  ReadTimeout: 20000
+  ConnectTimeout: 20000
+
+zuul:
+  ignoredServices: '*'
+  host:
+    connect-timeout-millis: 20000
+    socket-timeout-millis: 20000
+  routes:
+    auth-service:
+      path: /api/v1/auth/**
+      service-id: auth-service
+      stripPrefix: false
+    trip-service:
+      path: /trip/**
+      service-id: trip-service
+      stripPrefix: false
+    route-service:
+      path: /route/**
+      service-id: route-service
+      stripPrefix: false
+
+server:
+  port: 4000
